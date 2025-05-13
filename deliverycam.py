@@ -3,14 +3,14 @@ import sys
 import cv2
 from ultralytics import YOLO
 
-# Configuration
+#configuration
 model_path = 'my_model.pt'
 min_thresh = 0.50
 cam_index = 0
 imgW, imgH = 1280, 720
 record = False
 
-# Class Alias Mapping
+#class Alias Mapping
 label_aliases = {
     'post man': 'Post man',
     'envelope': 'Envelope',
@@ -18,7 +18,7 @@ label_aliases = {
     'parcel': 'Parcel'
 }
 
-# Model Validation and Load
+#model Validation and Load
 if not os.path.exists(model_path):
     print('ERROR: Model file not found.')
     sys.exit()
@@ -26,16 +26,16 @@ if not os.path.exists(model_path):
 model = YOLO(model_path, task='detect')
 labels = model.names
 
-# Camera Initialization
+#camera Initialization
 cap = cv2.VideoCapture(cam_index)
 cap.set(3, imgW)
 cap.set(4, imgH)
 
-# Bounding Box Colors
+#bounding Box Colors
 bbox_colors = [(164, 120, 87), (68, 148, 228), (93, 97, 209), (178, 182, 133), (88, 159, 106),
                (96, 202, 231), (159, 124, 168), (169, 162, 241), (98, 118, 150), (172, 176, 184)]
 
-# Recorder Initialization
+#recorder Initialization
 if record:
     recorder = cv2.VideoWriter('demo1.avi', cv2.VideoWriter_fourcc(*'MJPG'), 30, (imgW, imgH))
 
@@ -74,7 +74,7 @@ while True:
                               (xmin + labelSize[0], label_ymin + baseLine - 10), color, cv2.FILLED)
                 cv2.putText(frame, label, (xmin, label_ymin - 7), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 0), 1)
 
-    # Draw notification at the top
+    #draw notification at the top
     cv2.rectangle(frame, (0, 0), (imgW, 40), (50, 50, 50), -1)
     if detected_labels:
         notif = f"Detected: {', '.join(detected_labels)}"
@@ -91,6 +91,7 @@ while True:
         break
 
 cap.release()
+# function to release recorder
 if record:
     recorder.release()
 cv2.destroyAllWindows()
