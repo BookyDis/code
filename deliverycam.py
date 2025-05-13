@@ -4,7 +4,7 @@ import cv2
 from ultralytics import YOLO
 
 #configuration
-model_path = 'my_model.pt'
+model_path = 'Delivery_cam.pt'
 min_thresh = 0.50
 cam_index = 0
 imgW, imgH = 1280, 720
